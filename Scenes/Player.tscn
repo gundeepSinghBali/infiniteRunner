@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/WalkCyclePlayer/16by16-sprint-front4.png" type="Texture" id=1]
+[ext_resource path="res://Assets/WalkCyclePlayer/16by16-sprint-front1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/WalkCyclePlayer/16by16-sprint-front2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/WalkCyclePlayer/16by16-sprint-front3.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Run",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.0
+height = 4.0
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+
+[sub_resource type="Animation" id=3]
+resource_name = "deadAnimation"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 15.5, 84.8 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "default"
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Run"
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
+shape = SubResource( 2 )
+
+[node name="swipeDeactivate" type="Timer" parent="."]
+wait_time = 0.01
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/deadAnimation = SubResource( 3 )
+anims/default = SubResource( 5 )
+
+[connection signal="timeout" from="swipeDeactivate" to="." method="_on_swipeDeactivate_timeout"]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Level1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/ObstacleDesign1.tscn" type="PackedScene" id=2]
+
+[node name="Level1" instance=ExtResource( 1 )]
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+visible = true
+
+[node name="TileMap2" parent="." index="4"]
+tile_data = PoolIntArray( -65529, 1, 0, 65528, 1, 0, 131077, 1, 0, 262138, 1, 0, 458744, 1, 0, 393223, 1, 0 )
+
+[node name="ObstacleDesign1" parent="." index="5" instance=ExtResource( 2 )]
