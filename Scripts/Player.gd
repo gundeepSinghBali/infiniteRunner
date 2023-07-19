@@ -20,7 +20,12 @@ var swipe_state = {
 	"left": false,
 	"right": false
 }
-
+var speedState = {
+	"low":80,
+	"medium":120,
+	"high":!60,
+	"veryHigh":200
+}
 
 
 #onready var
@@ -29,20 +34,28 @@ onready var timer = $Timer
 onready var animations : AnimatedSprite = $AnimatedSprite
 onready var swipeDeactivate: Timer = $swipeDeactivate
 onready var camera : Camera2D = $"../Camera2D"
+onready var enemy : KinematicBody2D = $Enemy
 # normal var
 var move_value =  50
 var initial_position : Vector2 = Vector2.ZERO
 var runDirection = Vector2.DOWN
-var SPEED = 200
+var SPEED = speedState.low
 var button_pressed_once = false
 var touchStartPosition: Vector2 = Vector2.ZERO
 var touchEndPosition: Vector2 = Vector2.ZERO
+
+
+
+
+
 # Threshold to consider as a swipe
 var swipeThreshold: float = 50.0
 
-func _ready():
-	
+func handleSpeed():
 	pass
+
+func _ready():
+	camera.position.y += 40
 
 func _physics_process(delta):
 	sendIsDeadPlayer()
@@ -55,7 +68,8 @@ func _physics_process(delta):
 	elif state.moving == false and state.dead == true:
 		SPEED = 0
 		
-	handleLanes()
+	if state.dead == false:
+		handleLanes()
 	
 func handleLanes():
 	if (Input.is_action_just_pressed("ui_left") or swipe_state.left == true) and lane_state.left == false and lane_state.middle == true:
@@ -122,13 +136,19 @@ func _on_swipeDeactivate_timeout():
 	swipe_state.right = false
 
 func positionCamera():
-	camera.position.y = self.position.y + 65
+	if self.state.dead == false:
+		camera.position.y = self.position.y + 50
+	elif self.state.dead == true:
+		var interpolated_value = lerp(camera.position.y, enemy.global_position.y + 10, 1.6)
+		camera.position.y = interpolated_value
+
 
 func sendIsDeadPlayer():
 	if state.dead == true:
 		animations.play("default")
-		
 		if deathAnimationPlayed == false:
 			animationPlayer.play("deadAnimation")
 			deathAnimationPlayed = true
 		emit_signal("isDead", true)
+		
+

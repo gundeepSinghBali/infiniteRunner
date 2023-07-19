@@ -3,7 +3,8 @@ extends Node2D
 var scene : PackedScene = preload("res://Scenes/Level1.tscn")
 var scene1 : PackedScene = preload("res://Scenes/Level2.tscn")
 var scene2 : PackedScene = preload("res://Scenes/Level3.tscn")
-var arrayOfScenes : Array = [scene, scene1, scene2]
+var scene3 : PackedScene = preload("res://Scenes/Level4.tscn")
+var arrayOfScenes : Array = [scene, scene1, scene2, scene3]
 onready var timer: Timer = $Timer
 onready var nextPosition2dNode : Position2D = $Position2D
 onready var scoreLabel : RichTextLabel = $Camera2D/Score
@@ -17,6 +18,7 @@ func _ready():
 	player.connect("isDead", self, "onDead")
 	addNextLevelNode()
 func _physics_process(delta):
+	handleReload()
 	handleScore()
 	printScore()
 
@@ -57,3 +59,15 @@ func handleScore():
 	
 func printScore():
 	scoreLabel.text = "Score : " + str(SCORE)
+
+func handleSpeed():
+	if SCORE > 10000:
+		player.SPEED = player.speedState.medium
+	elif SCORE > 30000:
+		player.SPEED = player.speedState.high
+	elif SCORE > 100000:
+		player.SPEED = player.speedState.veryHigh
+		
+func handleReload():
+	if Input.is_action_pressed('R'):
+		get_tree().reload_current_scene()
