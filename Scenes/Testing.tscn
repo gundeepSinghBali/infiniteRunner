@@ -32,9 +32,9 @@ drag_margin_v_enabled = true
 
 [node name="ReloadButton" type="Button" parent="Camera2D"]
 margin_left = 72.0
-margin_top = -68.0
+margin_top = -72.0
 margin_right = 127.0
-margin_bottom = -48.0
+margin_bottom = -52.0
 mouse_default_cursor_shape = 2
 custom_colors/font_color_disabled = Color( 0.501961, 0.101961, 0.101961, 1 )
 text = "Reload"
@@ -42,9 +42,9 @@ align = 2
 
 [node name="Score" type="RichTextLabel" parent="Camera2D"]
 margin_left = -128.0
-margin_top = -68.0
+margin_top = -72.0
 margin_right = 16.0
-margin_bottom = -40.0
+margin_bottom = -44.0
 text = "Score"
 scroll_active = false
 
