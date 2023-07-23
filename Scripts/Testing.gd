@@ -61,11 +61,11 @@ func printScore():
 	scoreLabel.text = "Score : " + str(SCORE)
 
 func handleSpeed():
-	if SCORE > 10000:
+	if SCORE > 1200:
 		player.SPEED = player.speedState.medium
-	elif SCORE > 30000:
+	elif SCORE > 5000:
 		player.SPEED = player.speedState.high
-	elif SCORE > 100000:
+	elif SCORE > 7000:
 		player.SPEED = player.speedState.veryHigh
 		
 func handleReload():

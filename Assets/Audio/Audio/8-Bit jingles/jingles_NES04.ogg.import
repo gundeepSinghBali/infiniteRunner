@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/jingles_NES04.ogg-492bf6f5e84f1cbe71f4aa082b6259de.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Audio/8-Bit jingles/jingles_NES04.ogg"
+dest_files=[ "res://.import/jingles_NES04.ogg-492bf6f5e84f1cbe71f4aa082b6259de.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

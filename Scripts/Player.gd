@@ -21,10 +21,10 @@ var swipe_state = {
 	"right": false
 }
 var speedState = {
-	"low":80,
-	"medium":120,
-	"high":!60,
-	"veryHigh":200
+	"low":150,
+	"medium":200,
+	"high":240,
+	"veryHigh":300,
 }
 
 
@@ -35,6 +35,7 @@ onready var animations : AnimatedSprite = $AnimatedSprite
 onready var swipeDeactivate: Timer = $swipeDeactivate
 onready var camera : Camera2D = $"../Camera2D"
 onready var enemy : KinematicBody2D = $Enemy
+onready var gameThemeMusicAudio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 # normal var
 var move_value =  50
 var initial_position : Vector2 = Vector2.ZERO
@@ -55,6 +56,7 @@ func handleSpeed():
 	pass
 
 func _ready():
+	gameThemeMusicAudio.play()
 	camera.position.y += 40
 
 func _physics_process(delta):
